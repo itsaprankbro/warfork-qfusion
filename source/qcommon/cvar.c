@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "qcommon.h"
 #include "../qalgo/q_trie.h"
+#include "../client/l10n.h"
 #include "../client/console.h"
 
 static bool	cvar_initialized = false;
@@ -472,7 +473,8 @@ void Cvar_FixCheatVars( void )
 bool Cvar_Command( void )
 {
 	cvar_t *v;
-
+	const char *translated;
+			
 	// check variables
 	v = Cvar_Find( Cmd_Argv( 0 ) );
 	if( !v )
@@ -484,6 +486,13 @@ bool Cvar_Command( void )
 		Com_Printf( "\"%s\" is \"%s%s\" default: \"%s%s\"\n", v->name,
 			v->string, Q_ColorStringTerminator( v->string, ColorIndex(COLOR_WHITE) ),
 			v->dvalue, Q_ColorStringTerminator( v->dvalue, ColorIndex(COLOR_WHITE) ) );
+	
+		translated = L10n_TranslateString( "common", v->name );
+	    
+	    if( translated )
+		    Com_Printf( "\"%s\"\n", translated );
+		return false;
+										
 		if( v->latched_string )
 			Com_Printf( "latched: \"%s%s\"\n", v->latched_string,
 			Q_ColorStringTerminator( v->latched_string, ColorIndex(COLOR_WHITE) ) );
