@@ -487,8 +487,8 @@ bool Cvar_Command( void )
 			v->string, Q_ColorStringTerminator( v->string, ColorIndex(COLOR_WHITE) ),
 			v->dvalue, Q_ColorStringTerminator( v->dvalue, ColorIndex(COLOR_WHITE) ) );
 	
-		translated = L10n_TranslateString( "common", v->name );
-	    
+		translated = L10n_TranslateString( "common", Cvar_GetName( v ) );
+		
 	    if( translated )
 		    Com_Printf( "\"%s\"\n", translated );
 		return false;
